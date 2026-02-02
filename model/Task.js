@@ -9,6 +9,9 @@ const taskSchema = Schema({
     isComplete: {
         type: Boolean,
         required: true
+    },
+    completeDt: {
+        type: Date
     }
 }, {timestamps: true});
 

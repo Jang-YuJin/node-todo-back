@@ -5,7 +5,7 @@ const taskController = {};
 taskController.createTask = async (req, res) => {
     try {
         const {task, isComplete} = req.body;
-        const newTask = new Task({task, isComplete});
+        const newTask = new Task({task, isComplete, completeDt: null});
         await newTask.save();
     
         res.status(200).json({status: 'ok', data: newTask});
@@ -26,9 +26,10 @@ taskController.getTask = async (req, res) => {
 taskController.updateTask = async (req, res) => {
     try {
         const id = req.params.id;
-        const {isComplete} = req.body;
+        const {isComplete, completeDt} = req.body;
         const task = await Task.findById(id);
         task.isComplete = isComplete;
+        task.completeDt = completeDt;
         const updateTask = await task.save();
 
         if(!updateTask){
